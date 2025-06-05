@@ -109,7 +109,7 @@ def get_tomatoes(type: str, network: str) -> list:
         )
     )
 
-    for i in range(8):
+    for i in range(10):
         try:
             load_more_btn = wait.until(
                 EC.element_to_be_clickable(

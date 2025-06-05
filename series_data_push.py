@@ -9,11 +9,14 @@ def categorize_top_series(session, SERVER_ID, BASE_URL):
         remote_series = fetch_all_remote_series(session, BASE_URL)
 
         # Extract serie names -> ids from remote series
-        remote_serie_map = {
-            serie.get("nm", "").strip().lower(): serie.get("id")
-            for serie in remote_series
-            if serie.get("nm") and serie.get("id")
-        }
+        remote_serie_map = {}
+        for serie in remote_series:
+            path = serie.get("pat", "")
+            if path and serie.get("id"):
+                filename = path.split("/")[-1]
+                name_part = filename.split("(")[0]
+                normalized_name = name_part.strip().lower()
+                remote_serie_map[normalized_name] = serie.get("id")
 
         # Step 2: Load tomatoes (top 200 series by each service)
         print("Fetching tomatoes for netflix series...")

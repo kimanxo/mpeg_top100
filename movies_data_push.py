@@ -8,11 +8,14 @@ def categorize_top_movies(session, SERVER_ID, BASE_URL):
         remote_movies = fetch_all_remote_vod(session, BASE_URL, "movies")
 
         # Extract movie names -> ids from remote movies
-        remote_movie_map = {
-            movie.get("nm", "").strip().lower(): movie.get("id")
-            for movie in remote_movies
-            if movie.get("nm") and movie.get("id")
-        }
+        remote_movie_map = {}
+        for movie in remote_movies:
+            path = movie.get("path", "")
+            if path and movie.get("id"):
+                filename = path.split("/")[-1]
+                name_part = filename.split("(")[0]
+                normalized_name = name_part.strip().lower()
+                remote_movie_map[normalized_name] = movie.get("id")
 
         # Step 2: Load tomatoes (top 200 movies by each service)
         print("Fetching tomatoes for netflix mvoies...")
