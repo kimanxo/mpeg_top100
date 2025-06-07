@@ -1,5 +1,5 @@
 import requests
-from utils import fetch_all_remote_vod, get_tomatoes
+from utils import fetch_all_remote_vod, get_data
 import time
 
 def categorize_top_movies(session, SERVER_ID, BASE_URL):
@@ -19,17 +19,17 @@ def categorize_top_movies(session, SERVER_ID, BASE_URL):
 
         # Step 2: Load tomatoes (top 200 movies by each service)
         print("Fetching tomatoes for netflix mvoies...")
-        netflix_tomatoes = get_tomatoes("movies_at_home", "netflix")
+        netflix_tomatoes = get_data("movies", "netflix")
         print("Fetched tomatoes for netflix movies.")
         time.sleep(15)  # Sleep to avoid rate limiting
 
         print("Fetching tomatoes for prime video movies...")
-        prime_tomatoes = get_tomatoes("movies_at_home", "prime-video")
+        prime_tomatoes = get_data("movies", "amazon-prime-video")
         print("Fetched tomatoes for prime video movies.")
         time.sleep(15)  # Sleep to avoid rate limiting
 
         print("Fetching tomatoes for disney+ movies...")
-        disney_tomatoes = get_tomatoes("movies_at_home", "disney-plus")
+        disney_tomatoes = get_data("movies", "disney-plus")
         print("Fetched tomatoes for disney plus movies.")
         time.sleep(15)  # Sleep to avoid rate limiting
 

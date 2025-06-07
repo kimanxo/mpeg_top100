@@ -1,5 +1,5 @@
 import requests
-from utils import fetch_all_remote_series, get_tomatoes
+from utils import fetch_all_remote_series, get_data
 import time
 
 
@@ -20,17 +20,17 @@ def categorize_top_series(session, SERVER_ID, BASE_URL):
 
         # Step 2: Load tomatoes (top 200 series by each service)
         print("Fetching tomatoes for netflix series...")
-        netflix_tomatoes = get_tomatoes("tv_series_browse", "netflix")
+        netflix_tomatoes = get_data("tv-shows", "netflix")
         print("Fetched tomatoes for netflix series.")
         time.sleep(15)  # Sleep to avoid rate limiting
 
         print("Fetching tomatoes for prime video series...")
-        prime_tomatoes = get_tomatoes("tv_series_browse", "prime-video")
+        prime_tomatoes = get_data("tv-shows", "amazon-prime-video")
         print("Fetched tomatoes for prime video series.")
         time.sleep(30)  # Sleep to avoid rate limiting
 
         print("Fetching tomatoes for disney+ series...")
-        disney_tomatoes = get_tomatoes("tv_series_browse", "disney-plus")
+        disney_tomatoes = get_data("tv-shows", "disney-plus")
         print("Fetched tomatoes for disney plus series.")
 
        
